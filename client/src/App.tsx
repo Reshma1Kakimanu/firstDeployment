@@ -6,11 +6,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import Booking from "@/pages/Booking";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/booking/:serviceId" component={Booking} />
       <Route component={NotFound} />
     </Switch>
   );

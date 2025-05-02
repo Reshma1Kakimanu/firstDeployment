@@ -7,9 +7,11 @@ interface ServiceCardProps {
   title: string;
   description: string;
   index: number;
+  id: string;
+  hasDemo?: boolean;
 }
 
-const ServiceCard = ({ imageSrc, iconClass, title, description, index }: ServiceCardProps) => {
+const ServiceCard = ({ imageSrc, iconClass, title, description, index, id, hasDemo = false }: ServiceCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   
   // Calculate animation delay based on index
@@ -49,11 +51,22 @@ const ServiceCard = ({ imageSrc, iconClass, title, description, index }: Service
         <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">{title}</h3>
         <p className="text-gray-600 mb-4">{description}</p>
         
-        <div className="pt-2 flex items-center">
-          <span className="text-primary font-medium mr-2">Coming Soon</span>
-          <div className="ml-2 w-5 h-5 rounded-full royal-gradient flex items-center justify-center transform transition-transform duration-500 group-hover:rotate-90">
-            <i className="fas fa-arrow-right text-white text-xs"></i>
+        <div className="pt-2 flex items-center justify-between">
+          <div className="flex items-center">
+            <span className="text-primary font-medium mr-2">Coming Soon</span>
+            <div className="ml-2 w-5 h-5 rounded-full royal-gradient flex items-center justify-center transform transition-transform duration-500 group-hover:rotate-90">
+              <i className="fas fa-arrow-right text-white text-xs"></i>
+            </div>
           </div>
+          
+          {hasDemo && (
+            <a 
+              href={`/booking/${id}`} 
+              className="text-xs bg-primary text-white px-3 py-1.5 rounded-full hover:bg-primary/90 transition-colors"
+            >
+              Try Demo
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -62,40 +75,52 @@ const ServiceCard = ({ imageSrc, iconClass, title, description, index }: Service
 
 const services = [
   {
+    id: "doctor",
     imageSrc: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     iconClass: "fas fa-user-md",
     title: "Doctor Appointments",
-    description: "Book appointments with specialists without waiting in long queues. Save time and focus on your health."
+    description: "Book appointments with specialists without waiting in long queues. Save time and focus on your health.",
+    hasDemo: true
   },
   {
+    id: "salon",
     imageSrc: "https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     iconClass: "fas fa-cut",
     title: "Salon & Spa",
-    description: "Schedule your beauty treatments and spa sessions at your convenience. No more waiting."
+    description: "Schedule your beauty treatments and spa sessions at your convenience. No more waiting.",
+    hasDemo: false
   },
   {
+    id: "legal",
     imageSrc: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     iconClass: "fas fa-balance-scale",
     title: "Legal Consultations",
-    description: "Connect with lawyers and legal experts. Schedule consultations that respect your time."
+    description: "Connect with lawyers and legal experts. Schedule consultations that respect your time.",
+    hasDemo: false
   },
   {
+    id: "education",
     imageSrc: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     iconClass: "fas fa-graduation-cap",
     title: "Educational Consultants",
-    description: "Schedule meetings with educational experts and counselors for career guidance and admissions advice."
+    description: "Schedule meetings with educational experts and counselors for career guidance and admissions advice.",
+    hasDemo: false
   },
   {
+    id: "home",
     imageSrc: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     iconClass: "fas fa-home",
     title: "Home Services",
-    description: "Book appointments for plumbers, electricians, housekeeping, and other home services with ease."
+    description: "Book appointments for plumbers, electricians, housekeeping, and other home services with ease.",
+    hasDemo: false
   },
   {
+    id: "fitness",
     imageSrc: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     iconClass: "fas fa-dumbbell",
     title: "Fitness & Wellness",
-    description: "Schedule sessions with personal trainers, nutritionists, and wellness coaches on your schedule."
+    description: "Schedule sessions with personal trainers, nutritionists, and wellness coaches on your schedule.",
+    hasDemo: false
   }
 ];
 
@@ -157,10 +182,12 @@ export default function ServicesSection() {
             >
               <ServiceCard
                 index={index}
+                id={service.id}
                 imageSrc={service.imageSrc}
                 iconClass={service.iconClass}
                 title={service.title}
                 description={service.description}
+                hasDemo={service.hasDemo}
               />
             </div>
           ))}
