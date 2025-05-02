@@ -183,7 +183,7 @@ export default function HeroSection() {
               
               <div className="hero-image relative p-1 bg-white rounded-xl shadow-2xl overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=500&q=80"
+                  src="/hero-image.png"
                   alt="Mobile app interface showing appointment scheduling"
                   className="rounded-lg w-full h-auto object-cover shadow-sm"
                   onError={(e) => {
