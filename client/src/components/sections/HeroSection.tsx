@@ -49,45 +49,53 @@ export default function HeroSection() {
     
     window.addEventListener('mousemove', handleMouseMove);
     
-    // Create the timed alert for the time-saving calculator
+    // Create the timed alert for the time-saving calculator - only once per visit
     const timeoutId = setTimeout(() => {
-      const alert = document.createElement('div');
-      alert.className = 'fixed bottom-4 right-4 z-50 glass-card p-4 shadow-2xl max-w-sm shimmering-border transition-all duration-500 transform translate-y-full opacity-0';
-      alert.innerHTML = `
-        <div class="flex items-start p-1">
-          <div class="flex-shrink-0 p-2 bg-primary/10 rounded-full">
-            <i class="fas fa-clock text-primary text-xl"></i>
-          </div>
-          <div class="ml-3 flex-1">
-            <h3 class="text-sm font-medium text-gray-900">Curious about your time savings?</h3>
-            <div class="mt-1 text-sm text-gray-500">
-              <p>Find out how many hours of your life you could save with AppointKaro!</p>
-            </div>
-            <div class="mt-3 flex">
-              <a href="#learn-more" class="text-xs text-white bg-primary px-3 py-1 rounded-full">
-                Calculate Now
-              </a>
-            </div>
-          </div>
-          <button type="button" class="ml-2 text-gray-400 hover:text-gray-500" onclick="this.parentNode.parentNode.remove()">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      `;
-      document.body.appendChild(alert);
+      // Check if user has already seen the alert in this session
+      const hasSeenAlert = localStorage.getItem('appointKaro_alertShown');
       
-      // Animate the alert in
-      setTimeout(() => {
-        alert.classList.remove('translate-y-full', 'opacity-0');
-      }, 100);
-      
-      // Auto-remove after 10 seconds
-      setTimeout(() => {
-        alert.classList.add('translate-y-full', 'opacity-0');
+      if (!hasSeenAlert) {
+        // Mark as shown for this session
+        localStorage.setItem('appointKaro_alertShown', 'true');
+        
+        const alert = document.createElement('div');
+        alert.className = 'fixed bottom-4 right-4 z-50 glass-card p-4 shadow-2xl max-w-sm shimmering-border transition-all duration-500 transform translate-y-full opacity-0';
+        alert.innerHTML = `
+          <div class="flex items-start p-1">
+            <div class="flex-shrink-0 p-2 bg-primary/10 rounded-full">
+              <i class="fas fa-clock text-primary text-xl"></i>
+            </div>
+            <div class="ml-3 flex-1">
+              <h3 class="text-sm font-medium text-gray-900">Curious about your time savings?</h3>
+              <div class="mt-1 text-sm text-gray-500">
+                <p>Find out how many hours of your life you could save with AppointKaro!</p>
+              </div>
+              <div class="mt-3 flex">
+                <a href="#time-calculator" class="text-xs text-white bg-primary px-3 py-1 rounded-full">
+                  Calculate Now
+                </a>
+              </div>
+            </div>
+            <button type="button" class="ml-2 text-gray-400 hover:text-gray-500" onclick="this.parentNode.parentNode.remove()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        `;
+        document.body.appendChild(alert);
+        
+        // Animate the alert in
         setTimeout(() => {
-          alert.remove();
-        }, 500);
-      }, 10000);
+          alert.classList.remove('translate-y-full', 'opacity-0');
+        }, 100);
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+          alert.classList.add('translate-y-full', 'opacity-0');
+          setTimeout(() => {
+            alert.remove();
+          }, 500);
+        }, 10000);
+      }
     }, 5000);
     
     return () => {
@@ -183,11 +191,11 @@ export default function HeroSection() {
               
               <div className="hero-image relative p-1 bg-white rounded-xl shadow-2xl overflow-hidden">
                 <img
-                  src="/hero-image.png"
-                  alt="Mobile app interface showing appointment scheduling"
-                  className="rounded-lg w-full h-auto object-cover shadow-sm"
+                  src="/appointment-calendar.svg"
+                  alt="Calendar with appointment scheduling interface"
+                  className="rounded-lg w-full h-auto object-contain shadow-sm"
                   onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1555421689-491a97ff2040?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=500&q=80";
+                    e.currentTarget.src = "/hero-image-original.png";
                   }}
                 />
                 

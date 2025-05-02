@@ -60,7 +60,7 @@ export default function TimeSavingCalculator() {
 
   return (
     <section 
-      id="learn-more" 
+      id="time-calculator" 
       ref={sectionRef}
       className="py-20 md:py-28 relative overflow-hidden"
     >
