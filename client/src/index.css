@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --primary: 223 90% 65%; /* #4A6FFF primary blue */
+    --primary-foreground: 210 100% 98%;
+    --secondary: 0 85% 70%; /* #FF6B6B secondary red */
+    --secondary-foreground: 0 0% 100%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --ring: 223 90% 65%;
+    --radius: 0.5rem;
+    --chart-1: 223 90% 65%;
+    --chart-2: 0 85% 70%;
+    --chart-3: 130 67% 56%;
+    --chart-4: 199 89% 48%;
+    --chart-5: 278 75% 64%;
+  }
+  
+  .dark {
+    --background: 229 84% 5%;
+    --foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --popover: 229 84% 5%;
+    --popover-foreground: 0 0% 98%;
+    --card: 229 84% 5%;
+    --card-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --primary: 223 90% 65%;
+    --primary-foreground: 210 100% 98%;
+    --secondary: 0 85% 70%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --ring: 240 4.9% 83.9%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    @apply bg-gradient-to-br from-[#4A6FFF] to-[#5A7FFF];
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#4A6FFF] to-[#7A92FF] bg-clip-text text-transparent;
+  }
+  
+  .service-card {
+    @apply transition-all duration-300;
+  }
+  
+  .service-card:hover {
+    @apply -translate-y-2 shadow-xl;
+  }
+  
+  .btn-hover-effect {
+    @apply transition-all duration-300;
+  }
+  
+  .btn-hover-effect:hover {
+    @apply -translate-y-0.5 shadow-lg shadow-primary/20;
+  }
+
+  .scroll-indicator {
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+}
