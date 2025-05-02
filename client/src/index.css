@@ -14,23 +14,23 @@
     --card-foreground: 222 47% 11%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --primary: 210 100% 50%; /* #0080FF primary blue */
+    --primary: 258 90% 54%; /* #7922FF royal purple */
     --primary-foreground: 0 0% 100%;
-    --secondary: 25 95% 53%; /* #FF8000 secondary orange */
+    --secondary: 196 100% 45%; /* #00A8E8 vivid cyan */
     --secondary-foreground: 0 0% 100%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 330 85% 56%; /* #FF2677 rich magenta */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --ring: 210 100% 50%;
+    --ring: 258 90% 54%;
     --radius: 0.5rem;
-    --light-dark: 0 0% 98%;
+    --light-dark: 240 43% 97%;
     --dark: 222 47% 11%;
-    --chart-1: 210 100% 50%;
-    --chart-2: 25 95% 53%;
-    --chart-3: 142 69% 58%;
-    --chart-4: 262 83% 58%;
-    --chart-5: 333 71% 51%;
+    --chart-1: 258 90% 54%;
+    --chart-2: 196 100% 45%;
+    --chart-3: 330 85% 56%;
+    --chart-4: 280 90% 50%;
+    --chart-5: 217 91% 60%;
   }
   
   .dark {
@@ -44,15 +44,15 @@
     --card-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --primary: 210 100% 50%; 
+    --primary: 258 90% 54%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 25 95% 53%;
+    --secondary: 196 100% 45%;
     --secondary-foreground: 0 0% 100%;
-    --accent: 217 33% 17%;
+    --accent: 330 85% 56%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --ring: 210 100% 50%;
+    --ring: 258 90% 54%;
   }
 
   * {
@@ -92,70 +92,105 @@
 
 @layer components {
   .gradient-bg {
-    @apply bg-gradient-to-br from-primary to-secondary;
+    @apply bg-gradient-to-br from-primary via-accent to-secondary;
   }
   
   .gradient-text {
+    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+  }
+  
+  .royal-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary;
+  }
+  
+  .royal-gradient-text {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
   
+  .futuristic-glow {
+    @apply relative;
+  }
+  
+  .futuristic-glow::after {
+    content: '';
+    @apply absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 ease-in-out;
+    box-shadow: 0 0 20px 2px theme('colors.primary.DEFAULT');
+  }
+  
+  .futuristic-glow:hover::after {
+    @apply opacity-100;
+  }
+  
   .gradient-border {
-    @apply relative before:absolute before:inset-0 before:-z-10 before:p-[2px] before:rounded-[inherit] before:bg-gradient-to-r before:from-primary before:to-secondary;
+    @apply relative;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 -z-10 rounded-[inherit] p-[2px] bg-gradient-to-r from-primary via-accent to-secondary;
   }
   
   .service-card {
-    @apply transition-all duration-300 bg-white rounded-lg shadow-md overflow-hidden;
+    @apply transition-all duration-500 bg-white rounded-lg overflow-hidden shadow-lg relative border border-white/20 hover:border-primary/30;
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
   }
   
   .service-card:hover {
-    @apply transform -translate-y-2 shadow-xl;
+    @apply transform -translate-y-3;
+    box-shadow: 0 15px 40px -10px rgba(121, 34, 255, 0.3);
   }
   
   .btn-hover-effect {
-    @apply bg-primary text-white font-medium rounded-md py-3 px-6 transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5;
+    @apply bg-primary text-white font-medium rounded-md py-3 px-6 transition-all duration-300 uppercase tracking-wide text-sm relative overflow-hidden;
+  }
+  
+  .btn-hover-effect::before {
+    content: '';
+    @apply absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-accent to-secondary opacity-0 transition-opacity duration-500 ease-in-out;
+  }
+  
+  .btn-hover-effect:hover::before {
+    @apply opacity-100;
+  }
+  
+  .btn-hover-effect:hover {
+    @apply -translate-y-1 shadow-lg shadow-primary/30;
   }
   
   .elegant-btn {
-    @apply border-2 border-primary text-primary font-medium rounded-md py-3 px-6 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-md;
+    @apply border-2 border-primary text-primary font-medium rounded-md py-3 px-6 transition-all duration-300 uppercase tracking-wide text-sm hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1;
   }
   
   .glass-card {
-    @apply bg-white/90 shadow-lg rounded-lg border border-gray-100;
+    @apply bg-white/90 backdrop-blur-md shadow-xl rounded-lg border border-primary/10;
   }
-
+  
+  .shimmering-border {
+    @apply relative;
+  }
+  
+  .shimmering-border::before {
+    content: '';
+    @apply absolute inset-0 p-[1.5px] rounded-[inherit] bg-gradient-to-r from-primary/50 via-secondary/50 to-accent/50;
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+  
+  .section-title {
+    @apply relative inline-flex items-center;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply block w-20 h-1 bg-gradient-to-r from-primary to-secondary absolute -bottom-2 left-0 right-0 mx-auto rounded-full;
+  }
+  
   .scroll-indicator {
     animation: bounce 2s infinite;
   }
   
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-10px);
-    }
-    60% {
-      transform: translateY(-5px);
-    }
-  }
-
   .animate-float {
     animation: float 6s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    25% {
-      transform: translateY(-10px) rotate(1deg);
-    }
-    50% {
-      transform: translateY(-15px) rotate(0deg);
-    }
-    75% {
-      transform: translateY(-5px) rotate(-1deg);
-    }
   }
   
   .blur-circle {
@@ -166,19 +201,7 @@
   .animated-gradient {
     background-size: 200% 200%;
     animation: gradientAnimation 8s ease infinite;
-    @apply bg-gradient-to-r from-primary via-primary/70 to-secondary;
-  }
-  
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+    @apply bg-gradient-to-r from-primary via-accent to-secondary;
   }
   
   .parallax {
@@ -189,17 +212,6 @@
   .section-fade-in {
     animation: fadeInUp 1.2s ease-out forwards;
     opacity: 0;
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
   
   .animate-blob {
@@ -213,33 +225,92 @@
   .animation-delay-4000 {
     animation-delay: 4s;
   }
-  
-  @keyframes blob-bounce {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
   }
-  
-  @keyframes particleFloat {
-    0% {
-      transform: translateY(0) translateX(0);
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      transform: translateY(-100vh) translateX(20px);
-      opacity: 0;
-    }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blob-bounce {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
