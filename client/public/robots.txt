@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Allow all search engine bots to index all content
+Sitemap: https://appointkaro.com/sitemap.xml
+
+# Crawl-delay instructions 
+Crawl-delay: 10

@@ -147,12 +147,14 @@
   <circle cx="640" cy="520" r="8" fill="#e9ecef"/>
   <circle cx="640" cy="520" r="4" fill="#666"/>
   
-  <!-- Success check animation -->
-  <circle cx="380" cy="500" r="30" fill="#4caf50" opacity="0.2">
-    <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/>
-  </circle>
-  <path d="M370,500 L377,507 L390,494" stroke="#4caf50" stroke-width="4" fill="none">
-    <animate attributeName="stroke-width" values="4;6;4" dur="3s" repeatCount="indefinite"/>
-  </path>
-  <text x="380" y="545" font-family="Arial" font-size="14" fill="#4caf50" text-anchor="middle">Appointment Confirmed!</text>
+  <!-- Success check animation - realigned and positioned better -->
+  <g transform="translate(0, -30)">
+    <circle cx="380" cy="540" r="30" fill="#4caf50" opacity="0.2">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M370,540 L377,547 L390,534" stroke="#4caf50" stroke-width="4" fill="none">
+      <animate attributeName="stroke-width" values="4;6;4" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <text x="380" y="585" font-family="Arial" font-size="14" fill="#4caf50" text-anchor="middle">Appointment Confirmed!</text>
+  </g>
 </svg>

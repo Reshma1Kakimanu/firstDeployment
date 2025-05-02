@@ -146,7 +146,7 @@
   
   .btn-hover-effect::before {
     content: '';
-    @apply absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-accent to-secondary opacity-0 transition-opacity duration-500 ease-in-out;
+    @apply absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-accent to-secondary opacity-0 transition-opacity duration-500 ease-in-out -z-10;
   }
   
   .btn-hover-effect:hover::before {
