@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertSubscriberSchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
+import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Subscriber API endpoint
@@ -40,6 +41,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "An unexpected error occurred"
       });
     }
+  });
+  
+  // Handle SPA routes
+  app.get(['/booking-demo', '/booking/*'], (req, res, next) => {
+    // Let Vite handle routing for the React app
+    next();
   });
 
   const httpServer = createServer(app);
