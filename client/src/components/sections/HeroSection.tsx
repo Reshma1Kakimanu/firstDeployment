@@ -71,9 +71,9 @@ export default function HeroSection() {
                 <p>Find out how many hours of your life you could save with AppointKaro!</p>
               </div>
               <div class="mt-3 flex">
-                <a href="#time-calculator" class="text-xs text-white bg-primary px-3 py-1 rounded-full">
+                <button onclick="document.getElementById('time-calculator').scrollIntoView({behavior: 'smooth'}); this.parentNode.parentNode.parentNode.remove();" class="text-xs text-white bg-primary px-3 py-1 rounded-full cursor-pointer">
                   Calculate Now
-                </a>
+                </button>
               </div>
             </div>
             <button type="button" class="ml-2 text-gray-400 hover:text-gray-500" onclick="this.parentNode.parentNode.remove()">
@@ -170,8 +170,12 @@ export default function HeroSection() {
                 <i className="fas fa-bell mr-2"></i> Get Notified
               </a>
               <a
-                href="#learn-more"
+                href="#time-calculator"
                 className="elegant-btn text-center"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('time-calculator')?.scrollIntoView({behavior: 'smooth'});
+                }}
               >
                 Learn More
               </a>
@@ -216,7 +220,14 @@ export default function HeroSection() {
         </div>
         
         <div className="mt-16 text-center">
-          <a href="#services" className="inline-block scroll-indicator text-primary">
+          <a 
+            href="#time-calculator" 
+            className="inline-block scroll-indicator text-primary cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('time-calculator')?.scrollIntoView({behavior: 'smooth'});
+            }}
+          >
             <i className="fas fa-chevron-down text-2xl"></i>
           </a>
         </div>

@@ -20,7 +20,11 @@ function AppContent() {
   // Apply scroll animations to the entire application
   useScrollAnimation();
   
-  return <Router />;
+  return (
+    <div className="relative w-full overflow-x-hidden">
+      <Router />
+    </div>
+  );
 }
 
 function App() {
