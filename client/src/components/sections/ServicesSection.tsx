@@ -8,9 +8,9 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ imageSrc, iconClass, title, description }: ServiceCardProps) => (
-  <div className="service-card bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300">
+  <div className="service-card group">
     <div className="h-48 overflow-hidden">
-      <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
+      <img src={imageSrc} alt={title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
     </div>
     <div className="p-6">
       <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
@@ -66,16 +66,16 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-16 md:py-20 bg-white">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Book Appointments For Any Service</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Book Appointments For Any Service</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             AppointKaro brings multiple service categories under one platform, revolutionizing how India books appointments.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
@@ -87,10 +87,10 @@ export default function ServicesSection() {
           ))}
         </div>
         
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <a
             href="#notify"
-            className="btn-hover-effect px-8 py-4 bg-primary text-white text-lg font-medium rounded-lg transition-all duration-300 inline-block shadow-lg shadow-primary/20"
+            className="btn-hover-effect"
           >
             Get Early Access
           </a>

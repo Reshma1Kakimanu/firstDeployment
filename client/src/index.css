@@ -14,20 +14,22 @@
     --card-foreground: 222 47% 11%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --primary: 262 83% 58%; /* #8A2BE2 vibrant purple */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 199 89% 48%; /* #1DA1F2 elegant blue */
+    --primary: 210 100% 50%; /* #0080FF primary blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 25 95% 53%; /* #FF8000 secondary orange */
     --secondary-foreground: 0 0% 100%;
-    --accent: 262 83% 96%;
+    --accent: 210 40% 96.1%;
     --accent-foreground: 222 47% 11%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --ring: 262 83% 58%;
-    --radius: 0.75rem;
-    --chart-1: 262 83% 58%;
-    --chart-2: 199 89% 48%;
-    --chart-3: 316 70% 50%;
-    --chart-4: 183 80% 44%;
+    --ring: 210 100% 50%;
+    --radius: 0.5rem;
+    --light-dark: 0 0% 98%;
+    --dark: 222 47% 11%;
+    --chart-1: 210 100% 50%;
+    --chart-2: 25 95% 53%;
+    --chart-3: 142 69% 58%;
+    --chart-4: 262 83% 58%;
     --chart-5: 333 71% 51%;
   }
   
@@ -42,15 +44,15 @@
     --card-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 199 89% 48%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 210 100% 50%; 
+    --primary-foreground: 0 0% 100%;
+    --secondary: 25 95% 53%;
+    --secondary-foreground: 0 0% 100%;
     --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --ring: 263 47% 50%;
+    --ring: 210 100% 50%;
   }
 
   * {
@@ -90,57 +92,35 @@
 
 @layer components {
   .gradient-bg {
-    @apply bg-gradient-to-br from-[#8A2BE2] to-[#1DA1F2];
+    @apply bg-gradient-to-br from-primary to-secondary;
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-[#8A2BE2] to-[#1DA1F2] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
   
   .gradient-border {
-    @apply relative before:absolute before:inset-0 before:-z-10 before:p-[2px] before:rounded-[inherit] before:bg-gradient-to-r before:from-[#8A2BE2] before:to-[#1DA1F2];
+    @apply relative before:absolute before:inset-0 before:-z-10 before:p-[2px] before:rounded-[inherit] before:bg-gradient-to-r before:from-primary before:to-secondary;
   }
   
   .service-card {
-    @apply transition-all duration-300;
+    @apply transition-all duration-300 bg-white rounded-lg shadow-md overflow-hidden;
   }
   
   .service-card:hover {
-    @apply -translate-y-2 shadow-xl;
+    @apply transform -translate-y-2 shadow-xl;
   }
   
   .btn-hover-effect {
-    @apply relative transition-all duration-300 overflow-hidden z-10 bg-primary;
-  }
-  
-  .btn-hover-effect::before {
-    content: '';
-    @apply absolute inset-0 w-full h-full bg-gradient-to-r from-[#8A2BE2] to-[#1DA1F2] opacity-0 transition-opacity duration-300 ease-in-out z-[-1];
-  }
-  
-  .btn-hover-effect:hover::before {
-    @apply opacity-100;
-  }
-  
-  .btn-hover-effect:hover {
-    @apply -translate-y-0.5 shadow-lg shadow-primary/30 border-transparent;
+    @apply bg-primary text-white font-medium rounded-md py-3 px-6 transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5;
   }
   
   .elegant-btn {
-    @apply relative px-6 py-3 overflow-hidden border border-primary/30 rounded-full bg-transparent text-primary font-medium transition-all duration-300 hover:text-white hover:shadow-lg hover:shadow-primary/20 hover:border-transparent;
-  }
-  
-  .elegant-btn::before {
-    content: '';
-    @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#8A2BE2] to-[#1DA1F2] -z-10 transform scale-x-0 origin-left transition-transform duration-300 ease-out;
-  }
-  
-  .elegant-btn:hover::before {
-    @apply scale-x-100;
+    @apply border-2 border-primary text-primary font-medium rounded-md py-3 px-6 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-md;
   }
   
   .glass-card {
-    @apply backdrop-blur-lg bg-white/80 dark:bg-black/30 border border-white/20 shadow-xl;
+    @apply bg-white/90 shadow-lg rounded-lg border border-gray-100;
   }
 
   .scroll-indicator {
@@ -186,7 +166,7 @@
   .animated-gradient {
     background-size: 200% 200%;
     animation: gradientAnimation 8s ease infinite;
-    @apply bg-gradient-to-r from-[#8A2BE2] via-[#1DA1F2] to-[#9333ea];
+    @apply bg-gradient-to-r from-primary via-primary/70 to-secondary;
   }
   
   @keyframes gradientAnimation {
