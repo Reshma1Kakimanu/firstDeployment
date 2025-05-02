@@ -1,29 +1,64 @@
 import { Button } from '@/components/ui/button';
+import { useEffect, useRef, useState } from 'react';
 
 interface ServiceCardProps {
   imageSrc: string;
   iconClass: string;
   title: string;
   description: string;
+  index: number;
 }
 
-const ServiceCard = ({ imageSrc, iconClass, title, description }: ServiceCardProps) => (
-  <div className="service-card group">
-    <div className="h-48 overflow-hidden">
-      <img src={imageSrc} alt={title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-    </div>
-    <div className="p-6">
-      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-        <i className={`${iconClass} text-primary text-xl`}></i>
+const ServiceCard = ({ imageSrc, iconClass, title, description, index }: ServiceCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Calculate animation delay based on index
+  const animDelay = index * 100;
+  
+  return (
+    <div 
+      className="service-card group futuristic-glow"
+      style={{ animationDelay: `${animDelay}ms` }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="h-48 overflow-hidden relative">
+        <img 
+          src={imageSrc} 
+          alt={title} 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+        />
+        
+        {/* Animated gradient overlay on hover */}
+        <div 
+          className={`absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-60' : ''}`}
+        ></div>
+        
+        {/* Icon that moves up on hover */}
+        <div 
+          className={`absolute bottom-0 left-0 w-14 h-14 royal-gradient rounded-tr-xl flex items-center justify-center transform transition-transform duration-500 ${isHovered ? '-translate-y-2' : ''}`}
+        >
+          <i className={`${iconClass} text-white text-xl`}></i>
+        </div>
       </div>
-      <h3 className="text-xl font-bold mb-3">{title}</h3>
-      <p className="text-gray-600 mb-4">{description}</p>
-      <div className="pt-2">
-        <span className="text-primary font-medium">Coming Soon</span>
+      
+      <div className="p-6 relative">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md"></div>
+        
+        <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">{title}</h3>
+        <p className="text-gray-600 mb-4">{description}</p>
+        
+        <div className="pt-2 flex items-center">
+          <span className="text-primary font-medium mr-2">Coming Soon</span>
+          <div className="ml-2 w-5 h-5 rounded-full royal-gradient flex items-center justify-center transform transition-transform duration-500 group-hover:rotate-90">
+            <i className="fas fa-arrow-right text-white text-xs"></i>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const services = [
   {
@@ -65,34 +100,81 @@ const services = [
 ];
 
 export default function ServicesSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <section id="services" className="py-16 md:py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Book Appointments For Any Service</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+    <section id="services" ref={sectionRef} className="py-20 md:py-28 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-primary/5 to-white"></div>
+      
+      {/* Background blobs */}
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+      
+      {/* Background grid */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="h-full w-full" style={{ 
+          backgroundImage: 'radial-gradient(circle, #7922FF 1px, transparent 1px)',
+          backgroundSize: '30px 30px',
+        }}></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className={`text-center mb-16 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <h2 className="section-title text-3xl md:text-4xl font-bold mb-5">Book Appointments For Any Service</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-5">
             AppointKaro brings multiple service categories under one platform, revolutionizing how India books appointments.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <ServiceCard
-              key={index}
-              imageSrc={service.imageSrc}
-              iconClass={service.iconClass}
-              title={service.title}
-              description={service.description}
-            />
+            <div 
+              key={index} 
+              className={`transition-all duration-700 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
+              style={{ transitionDelay: `${200 + index * 100}ms` }}
+            >
+              <ServiceCard
+                index={index}
+                imageSrc={service.imageSrc}
+                iconClass={service.iconClass}
+                title={service.title}
+                description={service.description}
+              />
+            </div>
           ))}
         </div>
         
-        <div className="mt-12 text-center">
+        <div className={`mt-16 text-center transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`} style={{ transitionDelay: '900ms' }}>
           <a
             href="#notify"
-            className="btn-hover-effect"
+            className="btn-hover-effect relative inline-flex items-center group shadow-lg"
           >
-            Get Early Access
+            <span className="relative z-10">Get Early Access</span>
+            <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <i className="fas fa-arrow-right"></i>
+            </span>
           </a>
         </div>
       </div>
