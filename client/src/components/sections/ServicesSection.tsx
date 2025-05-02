@@ -62,7 +62,7 @@ const ServiceCard = ({ imageSrc, iconClass, title, description, index, id, hasDe
           
           {hasDemo && (
             <button 
-              onClick={() => window.location.href = `/booking/${id}`}
+              onClick={() => window.location.href = '/booking-demo'}
               className="text-xs bg-primary text-white px-3 py-1.5 rounded-full hover:bg-primary/90 transition-colors cursor-pointer"
             >
               Try Demo
