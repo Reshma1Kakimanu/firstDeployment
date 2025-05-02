@@ -116,12 +116,13 @@ export default function Booking() {
       
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
-          <Link href="/">
-            <span className="text-primary flex items-center cursor-pointer">
-              <i className="fas fa-arrow-left mr-2"></i>
-              Back to Home
-            </span>
-          </Link>
+          <button
+            onClick={() => window.location.href = '/'}
+            className="text-primary flex items-center cursor-pointer bg-transparent border-0 p-0"
+          >
+            <i className="fas fa-arrow-left mr-2"></i>
+            Back to Home
+          </button>
         </div>
         
         <div className="max-w-3xl mx-auto">
@@ -347,11 +348,9 @@ export default function Booking() {
                   Back
                 </Button>
               ) : (
-                <Link href="/">
-                  <Button variant="outline" className="cursor-pointer">
-                    Cancel
-                  </Button>
-                </Link>
+                <Button variant="outline" onClick={() => window.location.href = '/'} className="cursor-pointer">
+                  Cancel
+                </Button>
               )}
               
               <Button onClick={handleContinue} className="royal-gradient text-white border-0">

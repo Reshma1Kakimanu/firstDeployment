@@ -61,11 +61,12 @@ const ServiceCard = ({ imageSrc, iconClass, title, description, index, id, hasDe
           </div>
           
           {hasDemo && (
-            <Link to={`/booking/${id}`}>
-              <span className="text-xs bg-primary text-white px-3 py-1.5 rounded-full hover:bg-primary/90 transition-colors cursor-pointer inline-block">
-                Try Demo
-              </span>
-            </Link>
+            <button 
+              onClick={() => window.location.href = `/booking/${id}`}
+              className="text-xs bg-primary text-white px-3 py-1.5 rounded-full hover:bg-primary/90 transition-colors cursor-pointer"
+            >
+              Try Demo
+            </button>
           )}
         </div>
       </div>
