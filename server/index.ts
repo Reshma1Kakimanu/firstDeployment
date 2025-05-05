@@ -62,15 +62,31 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
+  // Modified to handle the ENOTSUP error
   const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  
+  // Try with localhost first
+  try {
+    server.listen({
+      port,
+      host: "127.0.0.1", // Changed from 0.0.0.0 to localhost
+    }, () => {
+      log(`Server running at http://localhost:${port}`);
+    });
+  } catch (error: any) {
+    if (error.code === 'ENOTSUP' || error.code === 'EADDRINUSE') {
+      // If that fails, try with a different port
+      const fallbackPort = 3000;
+      server.listen({
+        port: fallbackPort,
+        host: "127.0.0.1",
+      }, () => {
+        log(`Could not use port ${port}, server running at http://localhost:${fallbackPort} instead`);
+      });
+    } else {
+      // If it's a different error, re-throw it
+      console.error("Server failed to start:", error);
+      process.exit(1);
+    }
+  }
 })();
